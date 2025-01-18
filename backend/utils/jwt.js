@@ -12,7 +12,7 @@ const verifyToken = async (token) => {
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
       if (err) {
         // Dacă token-ul este invalid sau expirat, respinge promisiunea
-        reject(new Error('Token is invalid or expired'));
+        return reject(err);
       } else {
         // Dacă verificarea este reușită, returnează payload-ul decodat
         resolve(decoded);

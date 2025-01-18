@@ -11,7 +11,6 @@ router.post('/chooseTeacher', authMiddleware, async (req, res) => {
     const studentId = req.user.userId; 
     const student =await Student.getStudentById(studentId);
     const teachers =await Profesor.getAllProfesors(student.facultate,student.specializare);
-    console.log({studentId: studentId, student: student, teachers: teachers});
     return res.status(200).json({studentId: studentId, student: student, teachers: teachers});
 });
   
