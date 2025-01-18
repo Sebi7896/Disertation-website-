@@ -13,14 +13,7 @@ router.post('/logout', async (req, res) => {
       }
       try {
         // Șterge refresh token-ul din baza de date
-        await Token.destroy({ where: { token: refreshToken } });
-          
-        // Șterge cookie-ul
-        res.clearCookie('refreshToken', {
-          httpOnly: true,  // Setează opțiunile cookie-ului pentru securitate
-          secure: process.env.NODE_ENV === 'production', // Activ pentru HTTPS
-          sameSite: 'Strict', // Protejează cookie-ul la cereri cross-origin
-        });
+        await Token.destroy({ where: { token: refreshToken } });          
         return res.status(200).json({ message: 'Logged out successfully' });
       } catch (error) {
         console.error('Logout error:', error);

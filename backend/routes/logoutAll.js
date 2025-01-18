@@ -19,9 +19,6 @@ router.post('/logout-all', authMiddleware, async (req, res) => {
       // Șterge toate refresh token-urile din baza de date pentru acest utilizator
       await Token.destroy({ where: { user_id: userId } });
   
-      // Șterge cookie-ul
-      res.clearCookie('refreshToken');
-  
       return res.status(200).json({ message: 'Logged out from all devices' });
     } catch (error) {
       console.error('Logout all error:', error);

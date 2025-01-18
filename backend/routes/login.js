@@ -25,15 +25,6 @@ router.post('/login', async (req, res) => {
     const accessToken = generateAccessToken(user.id);
     if(remebertoken) {
       const refreshToken = generateRefreshToken(user.id);
-
-      // Setează refresh token în cookie HTTPOnly
-      res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',  // Activează pe HTTPS
-      sameSite: 'Strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000,  // 7 zile
-    });
-
       await Token.create({
         user_id: user.id,
         token: refreshToken,
