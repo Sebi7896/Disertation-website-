@@ -20,7 +20,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    const remebertoken = req.body.remebertoken;
+    const remebertoken = req.body.remembertoken;
 
     const accessToken = generateAccessToken(user.id);
     if(remebertoken) {
