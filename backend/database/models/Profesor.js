@@ -43,4 +43,20 @@ const Professor = sequelize.define('Profesori', {
     freezeTableName: true
   });
 
-module.exports = Professor;
+  async function getAllProfesors(Facultate,Specializare) {
+    try {
+      const professors = await Professor.findAll({
+        where: {
+          facultate: Facultate,
+          specializare: Specializare
+        }
+      });
+      return professors;
+    } catch (error) {
+      console.error('Error fetching professors:', error);
+      throw error;
+    }
+  }
+module.exports ={ 
+  Professor
+  ,getAllProfesors};

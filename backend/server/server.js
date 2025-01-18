@@ -11,6 +11,8 @@ const authRoute = require('../routes/login.js');
 const logoutRoute = require('../routes/logout');
 const refreshRoute = require('../routes/refresh_token');
 const logoutAllRoute = require('../routes/logoutAll');
+const chooseTeacher = require('../routes/StudentRoutes/chooseTeacher.js');
+const tokenData = require('../routes/tokenData.js');
 
 const app = express();
 // Middleware
@@ -22,6 +24,9 @@ app.use('/auth', authRoute);
 app.use('/auth',logoutRoute);
 app.use('/auth',refreshRoute); 
 app.use('/auth',logoutAllRoute);
+app.use('/auth',chooseTeacher);
+app.use('/',tokenData);
+
 const port = 8000;
 app.listen(port, () => {
   getAllStudents();

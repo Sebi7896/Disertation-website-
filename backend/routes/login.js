@@ -20,10 +20,9 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid password!' });
     }
 
-    const remeberToken = req.body.rememberToken;
-
-    const accessToken = generateAccessToken(user.id);
-    if(remeberToken) {
+    const rememberToken = req.body.rememberToken;
+    const accessToken = generateAccessToken(user.id,user.dataValues.role);
+    if(rememberToken) {
       const refreshToken = generateRefreshToken(user.id);
       await Token.create({
         user_id: user.id,

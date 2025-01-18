@@ -1,20 +1,23 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('../utils/jwt.js');
 
-const authMiddleware = (req, res, next) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
+const authMiddleware = async (req, res, next) => {
+  try {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
 
-  if (!token) {
-    return res.status(401).json({ message: 'No token, authorization denied' });
-  }
-
-  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Token is invalid or expired' });
+    if (!token) {
+      return res.status(401).json({ message: 'No token, authorization denied' });
     }
 
+    // Așteaptă decodarea token-ului
+    const decoded = await jwt.verifyToken(token);
+
+    // Adaugă utilizatorul decodat în request pentru utilizare ulterioară
     req.user = decoded;
-    next();
-  });
+    next(); // Trece la următorul middleware sau endpoint
+  } catch (error) {
+    console.error('Error in authMiddleware:', error);
+    return res.status(401).json({ message: error.message });
+  }
 };
 
 module.exports = authMiddleware;
