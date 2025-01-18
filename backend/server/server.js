@@ -13,6 +13,7 @@ const refreshRoute = require('../routes/refresh_token');
 const logoutAllRoute = require('../routes/logoutAll');
 const chooseTeacher = require('../routes/StudentRoutes/chooseTeacher.js');
 const tokenData = require('../routes/tokenData.js');
+const homePageTeacher = require("../routes/TeacherRoutes/homePageTeacher.js");
 
 const app = express();
 // Middleware
@@ -26,6 +27,7 @@ app.use('/auth',refreshRoute);
 app.use('/auth',logoutAllRoute);
 app.use('/auth',chooseTeacher);
 app.use('/',tokenData);
+app.use("/auth",homePageTeacher);
 
 const port = 8000;
 app.listen(port, () => {
