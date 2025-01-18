@@ -9,11 +9,9 @@ const authMiddleware = require('../../middleware/auth');
 
 router.post('/chooseTeacher', authMiddleware, async (req, res) => {
     const studentId = req.user.userId; 
-    console.log(studentId);
     const student =await Student.getStudentById(studentId);
     const teachers =await Profesor.getAllProfesors(student.facultate,student.specializare);
-
-    console.log(req.user.role);
+    console.log({studentId: studentId, student: student, teachers: teachers});
     return res.status(200).json({studentId: studentId, student: student, teachers: teachers});
 });
   

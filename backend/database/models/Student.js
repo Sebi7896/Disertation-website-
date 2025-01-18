@@ -63,7 +63,8 @@ const Student = sequelize.define('Studenti', {
               user_id: studentId
           }
       });
-        return student.dataValues;
+      const { id, nume, prenume, facultate, specializare } = student.dataValues;
+      return {nume, prenume, facultate, specializare };
     }
     catch (error) {
         // Dacă apare o eroare, o afișăm
