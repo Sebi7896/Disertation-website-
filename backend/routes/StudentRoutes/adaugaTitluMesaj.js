@@ -10,6 +10,7 @@ const e = require('express');
 router.put('/titleMesaj', authMiddleware, async (req, res) => {
     const idStudent = req.body.idStudent;
     const idCerere = req.body.idCerere;
+    const idProfesor = req.body.idProfesor;
     const mesaj = req.body.mesaj;
     const titlul = req.body.titlu;
     try {
@@ -19,7 +20,7 @@ router.put('/titleMesaj', authMiddleware, async (req, res) => {
             return res.status(404).json({ message: ';))' });
         }
 
-        const updatedResource =  await Cerere.updateTitleAndMessage(titlul,mesaj,idCerere);
+        const updatedResource =  await Cerere.updateTitleAndMessage(titlul,mesaj,idProfesor,idCerere);
         if (!updatedResource) {
             return res.status(404).json({ message: 'Resource not found' });
         }

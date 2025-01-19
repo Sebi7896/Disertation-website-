@@ -59,11 +59,13 @@ async function getCerereDupaId(studentId) {
     }
 }
 
-async function updateTitleAndMessage(titlul,mesaj,id) {
+async function updateTitleAndMessage(titlul,mesaj,idProfesor,id) {
     try {
         const rowsAffected =  await Cerere.update({
             title: titlul,
-            message: mesaj
+            message: mesaj,
+            professor_id: idProfesor,
+            status_acceptare_profesor: 'pending'
         }, {
             where: { id: id },
             returning: true,
