@@ -55,7 +55,27 @@ async function getCerereDupaId(studentId) {
     }
 }
 
+async function updateTitleAndMessage(titlul,mesaj,id) {
+    try {
+        const rowsAffected =  await Cerere.update({
+            title: titlul,
+            message: mesaj
+        }, {
+            where: { id: id },
+            returning: true,
+        });
+        if(rowsAffected[0] != 1) {
+            return false;
+        }
+        return true;
+    } catch (error) {
+        console.error('Error updating cerere:', error);
+        return false;
+    }
+}
+
 module.exports = {
   Cerere,
-  getCerereDupaId
+  getCerereDupaId,
+  updateTitleAndMessage
 };

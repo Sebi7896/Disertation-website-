@@ -15,6 +15,8 @@ const chooseTeacher = require('../routes/StudentRoutes/chooseTeacher.js');
 const tokenData = require('../routes/tokenData.js');
 const homePageTeacher = require("../routes/TeacherRoutes/homePageTeacher.js");
 const cerere = require("../routes/StudentRoutes/cerereRoute.js");
+const titleMsg = require("../routes/StudentRoutes/adaugaTitluMesaj.js");
+const idStudentCerere = require("../routes/StudentRoutes/IdStudentCerere.js");
 
 const app = express();
 // Middleware
@@ -30,6 +32,8 @@ app.use('/auth',chooseTeacher);
 app.use('/',tokenData);
 app.use("/auth",homePageTeacher);
 app.use("/auth",cerere);
+app.use("/auth",titleMsg);
+app.use("/auth",idStudentCerere);
 
 const port = 8000;
 app.listen(port, () => {
