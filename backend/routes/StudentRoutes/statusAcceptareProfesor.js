@@ -7,6 +7,8 @@ const authMiddleware = require('../../middleware/auth');
 
 router.get('/statusProfesor', authMiddleware, async (req, res) => {
     try {
+
+        //dee facut sa meargaq
         const userID = req.user.userId;
         const idStudent = req.body.idStudent;
 

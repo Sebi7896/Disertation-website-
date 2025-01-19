@@ -13,9 +13,9 @@ const refreshRoute = require('../routes/refresh_token');
 const logoutAllRoute = require('../routes/logoutAll');
 const chooseTeacher = require('../routes/StudentRoutes/chooseTeacher.js');
 const tokenData = require('../routes/tokenData.js');
-const homePageTeacher = require("../routes/TeacherRoutes/homePageTeacher.js");
-const cerere = require("../routes/StudentRoutes/cerereRoute.js");
-const titleMsg = require("../routes/StudentRoutes/adaugaTitluMesaj.js");
+const homePageTeacher = require("../routes/TeacherRoutes/requestsProfesor.js");
+const cerere = require("../routes/StudentRoutes/cereriStudent.js");
+const titleMsg = require("../routes/StudentRoutes/adaugaCerere.js");
 const idStudentCerere = require("../routes/StudentRoutes/IdStudentCerere.js");
 const statusProf = require("../routes/StudentRoutes/statusAcceptareProfesor.js");
 

@@ -8,6 +8,7 @@ const Profesor = require('../../database/models/Profesor');
 const authMiddleware = require('../../middleware/auth');
 
 router.post('/chooseTeacher', authMiddleware, async (req, res) => {
+    //dee facut sa meargaq
     const studentId = req.user.userId; 
     const student =await Student.getStudentById(studentId);
     const teachers =await Profesor.getAllProfesors(student.facultate,student.specializare);
