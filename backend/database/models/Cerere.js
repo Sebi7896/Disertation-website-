@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/database.js");
+const { get } = require("../../routes/StudentRoutes/chooseTeacher.js");
 
 const Cerere = sequelize.define("Cereri", {
     id: {
@@ -43,4 +44,18 @@ const Cerere = sequelize.define("Cereri", {
     freezeTableName: true
 });
 
-module.exports = Cerere;
+async function getCerereDupaId(studentId) {
+    try {
+        const cerere = await Cerere.findOne({
+            where: { student_id: studentId }
+        });
+        return cerere.dataValues;
+    } catch (error) {
+        console.error('Error fetching cerere:', error);
+    }
+}
+
+module.exports = {
+  Cerere,
+  getCerereDupaId
+};

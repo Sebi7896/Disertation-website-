@@ -49,13 +49,10 @@ const Professor = sequelize.define('Profesori', {
         where: {
           facultate: Facultate,
           specializare: Specializare
-        }
-      });
-      return professors.map(professor => {
-        const {  nume, prenume, remainingStudents } = professor.dataValues;
-        return {  nume, prenume, remainingStudents };
-      }
-      );
+        },
+        attributes : ['nume', 'prenume', 'remainingStudents']
+      });  
+      return professors.map(professor => professor.dataValues);
     } catch (error) {
       console.error('Error fetching professors:', error);
       throw error;

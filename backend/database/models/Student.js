@@ -71,7 +71,25 @@ const Student = sequelize.define('Studenti', {
         console.error('Error fetching student:', error);
     }
   }
+
+  async function getStudentByUserId(userId) {
+    try {
+        // id-ul
+        const student = await Student.findOne({
+          where: {
+              user_id: userId
+          },
+          attributes: ['id']
+      });
+      const id = student.dataValues.id;
+      return id;
+    }
+    catch (error) {
+        console.error('Error fetching student:', error);
+    }
+  }
 module.exports = {
   Student,getAllStudents,
-  getStudentById
+  getStudentById,
+  getStudentByUserId
 } ;
