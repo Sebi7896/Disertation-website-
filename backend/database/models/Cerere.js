@@ -38,6 +38,10 @@ const Cerere = sequelize.define("Cereri", {
     signed_by_student: {
       type: Sequelize.BOOLEAN,
       defaultValue: false
+    },
+    status_acceptare_profesor: {
+      type: DataTypes.TEXT,
+      defaultValue: null
     }
   }, {
     timestamps: false,
@@ -72,6 +76,18 @@ async function updateTitleAndMessage(titlul,mesaj,id) {
         console.error('Error updating cerere:', error);
         return false;
     }
+}
+
+async function getAcceptareProfesorStatus(studentId) {
+  try {
+      const cerere = await Cerere.findOne({
+          where: { studentId: studentId }
+      });
+      return cerere.dataValues.status_acceptare_profesor;
+  } catch (error) {
+      return false;
+  }
+  
 }
 
 module.exports = {

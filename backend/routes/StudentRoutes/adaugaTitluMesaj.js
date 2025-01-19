@@ -15,10 +15,6 @@ router.put('/titleMesaj', authMiddleware, async (req, res) => {
     try {
         //select in cerere where idStudent 
         const idCerereSelectat = await Cerere.getCerereDupaId(idStudent);
-        console.log(idCerereSelectat.id);
-        console.log(idCerere);
-
-      
         if(idCerereSelectat.id !== idCerere || idCerereSelectat === false){
             return res.status(404).json({ message: ';))' });
         }
