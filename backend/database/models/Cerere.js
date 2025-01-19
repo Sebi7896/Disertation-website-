@@ -51,7 +51,7 @@ async function getCerereDupaId(studentId) {
         });
         return cerere.dataValues;
     } catch (error) {
-        console.error('Error fetching cerere:', error);
+        return false;
     }
 }
 

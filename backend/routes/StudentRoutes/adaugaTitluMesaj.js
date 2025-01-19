@@ -7,12 +7,23 @@ const e = require('express');
 
 
 // Endpoint pentru actualizare resursă
-router.put('/titleMesaj/:id', authMiddleware, async (req, res) => {
-    const resourceId = req.params.id;
+router.put('/titleMesaj', authMiddleware, async (req, res) => {
+    const idStudent = req.body.idStudent;
+    const idCerere = req.body.idCerere;
     const mesaj = req.body.mesaj;
     const titlul = req.body.titlu;
     try {
-        const updatedResource =  await Cerere.updateTitleAndMessage(titlul,mesaj,resourceId);
+        //select in cerere where idStudent 
+        const idCerereSelectat = await Cerere.getCerereDupaId(idStudent);
+        console.log(idCerereSelectat.id);
+        console.log(idCerere);
+
+      
+        if(idCerereSelectat.id !== idCerere || idCerereSelectat === false){
+            return res.status(404).json({ message: ';))' });
+        }
+
+        const updatedResource =  await Cerere.updateTitleAndMessage(titlul,mesaj,idCerere);
         if (!updatedResource) {
             return res.status(404).json({ message: 'Resource not found' });
         }
