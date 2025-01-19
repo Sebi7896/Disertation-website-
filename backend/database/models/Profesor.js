@@ -50,7 +50,7 @@ const Professor = sequelize.define('Profesori', {
           facultate: Facultate,
           specializare: Specializare
         },
-        attributes : ['nume', 'prenume', 'remainingStudents']
+        attributes : ['id','nume', 'prenume', 'remainingStudents']
       });  
       return professors.map(professor => professor.dataValues);
     } catch (error) {
