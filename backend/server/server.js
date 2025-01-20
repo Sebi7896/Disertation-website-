@@ -18,6 +18,7 @@ const cerere = require("../routes/StudentRoutes/cereriStudent.js");
 const titleMsg = require("../routes/StudentRoutes/adaugaCerere.js");
 const idStudentCerere = require("../routes/StudentRoutes/IdStudentCerere.js");
 const statusProf = require("../routes/StudentRoutes/statusAcceptareProfesor.js");
+const checkRequests = require("../routes/StudentRoutes/checkRequests.js");
 
 const app = express();
 // Middleware
@@ -36,6 +37,7 @@ app.use("/auth",cerere);
 app.use("/auth",titleMsg);
 app.use("/auth",idStudentCerere);
 app.use("/auth",statusProf);
+app.use("/auth",checkRequests);
 
 const port = 8000;
 app.listen(port, () => {

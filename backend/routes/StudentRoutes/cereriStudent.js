@@ -10,7 +10,7 @@ router.post('/cereriStudent', authMiddleware, async (req, res) => {
 
     try {
         const userID = req.user.userId;
-        const student_id = await Student.getStudentByUserId(userID);
+        const student_id = await Student.getStudentIdByUserId(userID);
         const cerere = await Cerere.getCereriDupaId(student_id);
         return res.status(200).json({cereri: cerere});
     }catch (error) {

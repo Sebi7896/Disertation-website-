@@ -52,7 +52,7 @@ async function getCereriDupaId(studentId) {
         const cereri = await Cerere.findAll({
             where: { student_id: studentId }
         });
-        return cereri;
+        return cereri.map(cerere => cerere.dataValues);
     } catch (error) {
         return false;
     }
