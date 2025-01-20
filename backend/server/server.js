@@ -37,6 +37,6 @@ app.use("/auth",statusProf);
 app.use("/auth",checkRequests);
 
 const port = 8000;
-app.listen(port, () => {
+app.listen(port,async () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

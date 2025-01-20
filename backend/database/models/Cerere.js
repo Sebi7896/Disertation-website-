@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/database.js");
-
+const  Profesor = require("./Profesor.js");
+const { Op } = require('sequelize');
 const Cerere = sequelize.define("Cereri", {
     id: {
       type: DataTypes.INTEGER,
@@ -45,17 +46,24 @@ const Cerere = sequelize.define("Cereri", {
   }, {
     timestamps: false,
     freezeTableName: true
-});
-
+  },
+  {
+    modelName: 'Cerere',
+    tableName: 'Cereri'
+  }
+);
 async function getCereriDupaId(studentId) {
-    try {
-        const cereri = await Cerere.findAll({
-            where: { student_id: studentId }
-        });
-        return cereri.map(cerere => cerere.dataValues);
-    } catch (error) {
-        return false;
-    }
+  try {
+    const cereri = await Cerere.findAll({
+      where: { student_id: studentId },
+      attributes: ['id', 'title', 'message', 'professor_id', 'status_acceptare_profesor']
+    });
+    const cereriMapate = cereri.map(cerere => cerere.dataValues);
+    return cereriMapate;
+  } catch (error) {
+    console.error('Error fetching cereri:', error);
+    throw error;
+  }  
 }
 async function getIdProfesoriCereri(studentId) {
     try {

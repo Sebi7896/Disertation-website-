@@ -4,7 +4,7 @@ const Token = require('../../database/models/Token');
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const Student = require('../../database/models/Student');
-const Profesor = require('../../database/models/Profesor');
+const Professor = require('../../database/models/Profesor');
 const Cerere = require('../../database/models/Cerere');
 const authMiddleware = require('../../middleware/auth');
 
