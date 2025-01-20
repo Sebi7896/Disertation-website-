@@ -21,7 +21,8 @@ router.get('/cereriStudent', authMiddleware, async (req, res) => {
                 prenume: profesor.dataValues.prenume,
               };
         }
-        return res.status(200).json({cereri: cereri});
+        const studentCreditensials = await Student.getCreditentials(student_id);
+        return res.status(200).json({student : studentCreditensials, cereri: cereri});
     }catch (error) {
         console.error('Error in cerereRoute:', error);
         return res.status(401).json({ message: error.message });

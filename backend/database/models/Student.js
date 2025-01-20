@@ -122,10 +122,23 @@ const Student = sequelize.define('Studenti', {
         console.error('Error fetching proffesors:', error);
     }
   }
+  async function getCreditentials(student_id) {
+      try {
+        const student = await Student.findOne({
+          where: {
+            id: student_id
+          },
+          attributes: ['nume', 'prenume']
+        });
+      }catch(error) {
+        console.error('Error fetching proffesors:', error);
+      }
+  }
 module.exports = {
   Student,getAllStudents,
   getStudentById,
   getStudentIdByUserId,
   getPendingProfesor,
-  getProfesoriDeAlesFacultateSpecializare
+  getProfesoriDeAlesFacultateSpecializare,
+  getCreditentials
 } ;
