@@ -63,10 +63,6 @@ async function getIdProfesoriCereri(studentId) {
             where: { student_id: studentId },
             attributes: ['professor_id']
         });
-        const ids = cereri.map(cerere => cerere.dataValues.professor_id);
-        // if(ids[0] === null) {
-        //     return [];
-        // }
         return ids;
     } catch (error) {
         console.error('Error fetching cereri:', error);
