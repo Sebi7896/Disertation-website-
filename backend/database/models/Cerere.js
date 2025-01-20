@@ -48,29 +48,28 @@ const Cerere = sequelize.define("Cereri", {
     freezeTableName: true
 });
 
-async function getCerereDupaId(studentId) {
+async function getCereriDupaId(studentId) {
     try {
-        const cerere = await Cerere.findOne({
+        const cereri = await Cerere.findAll({
             where: { student_id: studentId }
         });
-        return cerere.dataValues;
+        return cereri;
     } catch (error) {
         return false;
     }
 }
 
-async function updateTitleAndMessage(titlul,mesaj,idProfesor,id) {
+async function insertTitleAndMessage(titlul,mesaj,idProfesor, id) {
     try {
-        const rowsAffected =  await Cerere.update({
-            title: titlul,
-            message: mesaj,
-            professor_id: idProfesor,
-            status_acceptare_profesor: 'pending'
-        }, {
-            where: { id: id },
-            returning: true,
+        console.log('Inserting title and message:', titlul, mesaj, idProfesor, id);
+        const newCerere = await Cerere.create({
+          title: titlul,
+          message: mesaj,
+          professor_id: idProfesor,
+          student_id: id,
+          status_acceptare_profesor: 'pending',
         });
-        if(rowsAffected[0] != 1) {
+        if(!newCerere) {
             return false;
         }
         return true;
@@ -80,20 +79,21 @@ async function updateTitleAndMessage(titlul,mesaj,idProfesor,id) {
     }
 }
 
-async function getAcceptareProfesorStatus(studentId) {
-  try {
-      const cerere = await Cerere.findOne({
-          where: { studentId: studentId }
-      });
-      return cerere.dataValues.status_acceptare_profesor;
-  } catch (error) {
-      return false;
-  }
-  
+async function getStudentsRequestsForProfesor(profesorId) {
+    try {
+        const cereri = await Cerere.findAll({
+            where: { professor_id: profesorId }
+        });
+        return cereri.map(cerere => cerere.dataValues);
+    } catch (error) {
+        console.error('Error fetching cereri:', error);
+        return false;
+    }
 }
 
 module.exports = {
   Cerere,
-  getCerereDupaId,
-  updateTitleAndMessage
+  getCereriDupaId,
+  insertTitleAndMessage,
+
 };

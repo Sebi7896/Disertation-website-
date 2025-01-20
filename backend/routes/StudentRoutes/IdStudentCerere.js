@@ -8,6 +8,7 @@ const authMiddleware = require('../../middleware/auth');
 
 router.post('/idStudentCerere', authMiddleware, async (req, res) => {
     try {
+        //dee facut sa meargaq
         const userID = req.user.userId;
         const idStudent = await Student.getStudentByUserId(userID);
         const cerere = await Cerere.getCerereDupaId(idStudent);
