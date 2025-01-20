@@ -130,6 +130,7 @@ const Student = sequelize.define('Studenti', {
           },
           attributes: ['nume', 'prenume']
         });
+        return student;
       }catch(error) {
         console.error('Error fetching proffesors:', error);
       }
