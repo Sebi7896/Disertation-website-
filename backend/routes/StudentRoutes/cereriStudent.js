@@ -6,7 +6,7 @@ const Student = require('../../database/models/Student');
 const authMiddleware = require('../../middleware/auth');
 
 //cererile studentului la momentul asta 
-router.post('/cereriStudent', authMiddleware, async (req, res) => {
+router.get('/cereriStudent', authMiddleware, async (req, res) => {
 
     try {
         const userID = req.user.userId;
