@@ -10,7 +10,7 @@ const authMiddleware = require('../../middleware/auth');
 
 
 //pentru a alege profesorii disponibili si pe care nu i a ales deja
-router.post('/checkRequests', authMiddleware, async (req, res) => {
+router.get('/checkRequests', authMiddleware, async (req, res) => {
     const user_id = req.user.userId; 
     const studentId =await Student.getStudentIdByUserId(user_id);
 
