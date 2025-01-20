@@ -39,6 +39,5 @@ app.use("/auth",statusProf);
 
 const port = 8000;
 app.listen(port, () => {
-  getAllStudents();
   console.log(`Server is running on http://localhost:${port}`);
 });

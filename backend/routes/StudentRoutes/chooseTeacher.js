@@ -5,14 +5,19 @@ require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const Student = require('../../database/models/Student');
 const Profesor = require('../../database/models/Profesor');
+const Cerere = require('../../database/models/Cerere');
 const authMiddleware = require('../../middleware/auth');
 
+
+//pentru a alege profesorii disponibili si pe care nu i a ales deja
 router.post('/chooseTeacher', authMiddleware, async (req, res) => {
-    //dee facut sa meargaq
-    const studentId = req.user.userId; 
-    const student =await Student.getStudentById(studentId);
-    const teachers =await Profesor.getAllProfesors(student.facultate,student.specializare);
-    return res.status(200).json({studentId: studentId, student: student, teachers: teachers});
+    const user_id = req.user.userId; 
+    const studentId =await Student.getStudentIdByUserId(user_id);
+
+    const cereri = await Cerere.getIdProfesoriCereri(studentId); 
+    //preia toti profii disponibili si care nu sunt deja alesi
+    const teachers =await Student.getProfesoriDeAlesFacultateSpecializare(studentId,cereri);
+    return res.status(200).json({studentId: studentId, teachers: teachers});
 });
   
 module.exports = router;

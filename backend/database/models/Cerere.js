@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/database.js");
-const { get } = require("../../routes/StudentRoutes/chooseTeacher.js");
 
 const Cerere = sequelize.define("Cereri", {
     id: {
@@ -58,7 +57,22 @@ async function getCereriDupaId(studentId) {
         return false;
     }
 }
-
+async function getIdProfesoriCereri(studentId) {
+    try {
+        const cereri = await Cerere.findAll({
+            where: { student_id: studentId },
+            attributes: ['professor_id']
+        });
+        const ids = cereri.map(cerere => cerere.dataValues.professor_id);
+        // if(ids[0] === null) {
+        //     return [];
+        // }
+        return ids;
+    } catch (error) {
+        console.error('Error fetching cereri:', error);
+        return false;
+    }
+}
 async function insertTitleAndMessage(titlul,mesaj,idProfesor, id) {
     try {
         console.log('Inserting title and message:', titlul, mesaj, idProfesor, id);
@@ -95,5 +109,5 @@ module.exports = {
   Cerere,
   getCereriDupaId,
   insertTitleAndMessage,
-
+  getIdProfesoriCereri
 };

@@ -6,7 +6,7 @@ const e = require('express');
 //const bcrypt = require('bcryptjs');
 
 
-// Endpoint pentru actualizare resursă
+//adaugam o cerere preliminara dupa prof pending
 router.put('/adaugaCerere', authMiddleware, async (req, res) => {
     const { idStudent, idCerere, idProfesor, mesaj, titlu } = req.body;
     if (!idStudent || !idCerere || !idProfesor || !mesaj || !titlu) {

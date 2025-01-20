@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
+const Profesor = require("./Profesor.js");
 const sequelize = require("../config/database.js");
-
 
 const Student = sequelize.define('Studenti', {
     id: {
@@ -72,7 +72,7 @@ const Student = sequelize.define('Studenti', {
     }
   }
 
-  async function getStudentByUserId(userId) {
+  async function getStudentIdByUserId(userId) {
     try {
         // id-ul
         const student = await Student.findOne({
@@ -81,8 +81,7 @@ const Student = sequelize.define('Studenti', {
           },
           attributes: ['id']
       });
-      const id = student.dataValues.id;
-      return id;
+      return student.dataValues.id;
     }
     catch (error) {
         console.error('Error fetching student:', error);
@@ -104,9 +103,29 @@ const Student = sequelize.define('Studenti', {
         console.error('Error fetching student:', error);
     }
   }
+  async function getProfesoriDeAlesFacultateSpecializare(student_id,cereriDejaFacuteDeProfi) {
+    try {
+        
+        const student = await Student.findOne({
+          where: {
+              id: student_id
+          },
+          attributes: ['facultate', 'specializare']
+      });
+      
+      const { facultate, specializare } = student.dataValues;
+
+      const profesori = await Profesor.getAllProfesorsAvailable(facultate,specializare,cereriDejaFacuteDeProfi);
+      return profesori;
+
+    }catch (error) {
+        console.error('Error fetching proffesors:', error);
+    }
+  }
 module.exports = {
   Student,getAllStudents,
   getStudentById,
-  getStudentByUserId,
-  getPendingProfesor
+  getStudentIdByUserId,
+  getPendingProfesor,
+  getProfesoriDeAlesFacultateSpecializare
 } ;

@@ -1,6 +1,6 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { Sequelize, DataTypes, where } = require("sequelize");
 const sequelize = require("../config/database.js");
-
+const { Op } = require('sequelize');
 
 const Professor = sequelize.define('Profesori', {
     id: {
@@ -43,16 +43,19 @@ const Professor = sequelize.define('Profesori', {
     freezeTableName: true
   });
 
-  async function getAllProfesors(Facultate,Specializare) {
+  async function getAllProfesorsAvailable(facultate,specializare,cereriDejaFacuteDeProfi) {
     try {
       const professors = await Professor.findAll({
         where: {
-          facultate: Facultate,
-          specializare: Specializare
+          facultate: facultate,
+          specializare: specializare,
+          id: {
+            [Op.notIn]: cereriDejaFacuteDeProfi,
+          },
         },
-        attributes : ['id','nume', 'prenume', 'remainingStudents']
-      });  
-      return professors.map(professor => professor.dataValues);
+        attributes: ['id', 'nume', 'prenume', 'remainingStudents'], 
+      })
+      return professors;
     } catch (error) {
       console.error('Error fetching professors:', error);
       throw error;
@@ -60,4 +63,4 @@ const Professor = sequelize.define('Profesori', {
   }
 module.exports ={ 
   Professor
-  ,getAllProfesors};
+  ,getAllProfesorsAvailable};
