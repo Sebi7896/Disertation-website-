@@ -3,7 +3,6 @@ const cors = require('cors');
 require('dotenv').config({ path: '../.env' });
 const { json } = require('express');
 const cookieParser = require('cookie-parser');
-const {getAllStudents}= require('../database/models/Student.js');
 const cronJob = require("../utils/cronJobToken");
 
 //rute
@@ -16,7 +15,6 @@ const tokenData = require('../routes/tokenData.js');
 const homePageTeacher = require("../routes/TeacherRoutes/requestsProfesor.js");
 const cerere = require("../routes/StudentRoutes/cereriStudent.js");
 const titleMsg = require("../routes/StudentRoutes/adaugaCerere.js");
-const idStudentCerere = require("../routes/StudentRoutes/IdStudentCerere.js");
 const statusProf = require("../routes/StudentRoutes/statusAcceptareProfesor.js");
 const checkRequests = require("../routes/StudentRoutes/checkRequests.js");
 
@@ -35,7 +33,6 @@ app.use('/',tokenData);
 app.use("/auth",homePageTeacher);
 app.use("/auth",cerere);
 app.use("/auth",titleMsg);
-app.use("/auth",idStudentCerere);
 app.use("/auth",statusProf);
 app.use("/auth",checkRequests);
 
