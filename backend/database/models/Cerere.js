@@ -133,12 +133,29 @@ async function stergeCerereDupaId(idCerere) {
       return false;
     }
 }
+//actualizeaza cerererea aprobata a profului
+async function actualizeazaStatusAprobareProfesor(idCerere){
+  try {
+    const rezultat = await Cerere.update(
+      { status: "accepted" },
+      { where: { id: idCerere } }
+    );
+    if(rezultat[0] === 1) {
+      return true;
+    }
+  }catch(error) {
 
+    return false;
+  }
+
+
+}
 module.exports = {
   Cerere,
   getCereriDupaId,
   insertTitleAndMessage,
   getCereriProfesor,
   getCereriProfesorIds,
-  stergeCerereDupaId
+  stergeCerereDupaId,
+  actualizeazaStatusAprobareProfesor
 };

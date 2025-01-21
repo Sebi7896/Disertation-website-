@@ -1,7 +1,7 @@
 require('dotenv').config({ path: './.env' });
 const jwt = require('jsonwebtoken');
 
-const generateAccessToken =async (userId,role) => {
+const generateAccessToken = (userId,role) => {
     return jwt.sign({ userId, role }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRE_ACCESS_TOKEN });
   };
 const generateRefreshToken = (userId) => {

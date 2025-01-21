@@ -7,8 +7,9 @@ const Student = require('../../database/models/Student');
 
 
 router.post('/actualizeazaCerereStudent', authMiddleware, async (req, res) => {
-    
-  });
+    const idCerere = req.body.idCerere;
+    const cerere = Cerere.actualizeazaStatusAprobareProfesor(idCerere);
+});
   
   
 module.exports = router;
