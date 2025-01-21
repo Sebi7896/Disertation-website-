@@ -2,6 +2,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/database.js");
 const  Profesor = require("./Profesor.js");
 const { Op } = require('sequelize');
+const Student = require("./Student.js");
 const Cerere = sequelize.define("Cereri", {
     id: {
       type: DataTypes.INTEGER,
@@ -52,6 +53,8 @@ const Cerere = sequelize.define("Cereri", {
     tableName: 'Cereri'
   }
 );
+
+//dupa idStudent 
 async function getCereriDupaId(studentId) {
   try {
     const cereri = await Cerere.findAll({
@@ -65,14 +68,29 @@ async function getCereriDupaId(studentId) {
     throw error;
   }  
 }
-async function getIdProfesoriCereri(studentId) {
+//dupa id Profesor iau cererile
+async function getCereriDupaId(studentId) {
+  try {
+    const cereri = await Cerere.findAll({
+      where: { student_id: studentId },
+      attributes: ['id', 'title', 'message', 'professor_id', 'status_acceptare_profesor']
+    });
+    const cereriMapate = cereri.map(cerere => cerere.dataValues);
+    return cereriMapate;
+  } catch (error) {
+    console.error('Error fetching cereri:', error);
+    throw error;
+  }  
+}
+//cererile primite de la studenti unui profesor
+async function getCereriProfesor(profesor_id) {
     try {
         const cereri = await Cerere.findAll({
-            where: { student_id: studentId },
-            attributes: ['professor_id']
-        });
-        const ids = cereri.map(cerere => cerere.dataValues.professor_id);
-        return ids;
+            where: { professor_id: profesor_id },
+            attributes: ['title','message','student_id','signed_by_professor','signed_by_student','status_acceptare_profesor']
+        });   
+        return cereri.map(cerere => cerere.dataValues);
+        
     } catch (error) {
         console.error('Error fetching cereri:', error);
         return false;
@@ -98,21 +116,10 @@ async function insertTitleAndMessage(titlul,mesaj,idProfesor, id) {
     }
 }
 
-async function getStudentsRequestsForProfesor(profesorId) {
-    try {
-        const cereri = await Cerere.findAll({
-            where: { professor_id: profesorId }
-        });
-        return cereri.map(cerere => cerere.dataValues);
-    } catch (error) {
-        console.error('Error fetching cereri:', error);
-        return false;
-    }
-}
 
 module.exports = {
   Cerere,
   getCereriDupaId,
   insertTitleAndMessage,
-  getIdProfesoriCereri
+  getCereriProfesor
 };

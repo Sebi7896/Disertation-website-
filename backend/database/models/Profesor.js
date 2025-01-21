@@ -85,9 +85,21 @@ const Professor = sequelize.define('Profesori', {
           });
       return prof.dataValues; 
   }
+  //returneaza datele profesorului pentru main page
+  async function getProfesorById(profesor_id) {
+    const profesor =await Professor.findOne({
+      where : {
+        id : profesor_id
+      },
+      attributes : ['id','nume','prenume','remainingStudents']
+    });
+    return profesor.dataValues;
+  }
+
 module.exports ={ 
   Professor
   ,getAllProfesorsAvailable
   ,getProfessorById
   ,getProfesorFacultateSpecializare
+  ,getProfesorById
 };
