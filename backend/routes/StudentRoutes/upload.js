@@ -9,12 +9,9 @@ const upload = multer();
 router.post('/uploadPdf', authMiddleware, upload.single('file'), async (req, res) => {
   try {
     const userId = req.user.userId; 
-    console.log("req.file:", req.file.buffer);
-
     const studentId = await Student.getStudentIdByUserId(userId);
     const pdfBuffer = req.file.buffer;
 
-    
     const actualizareCuSucces = await Cerere.actualizeazaPdf(studentId, pdfBuffer);
 
     if (!actualizareCuSucces) {

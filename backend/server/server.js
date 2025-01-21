@@ -21,6 +21,7 @@ const deleteRequest = require("../routes/TeacherRoutes/stergeCerere.js");
 const actualizareCerereProfesorAcceptare = require("../routes/TeacherRoutes/acceptaCerere.js");
 const upload = require("../routes/StudentRoutes/upload.js");
 const getPdf = require("../routes/CereriRoutes/primirePdf.js");
+const cerereStats = require("../routes/CereriRoutes/dateCerere.js")
 
 const app = express();
 // Middleware
@@ -43,6 +44,7 @@ app.use("/auth",deleteRequest);
 app.use("/auth",actualizareCerereProfesorAcceptare);
 app.use("/auth",upload);
 app.use('/auth',getPdf);
+app.use('/auth',cerereStats);
 
 const port = 8000;
 app.listen(port,async () => {

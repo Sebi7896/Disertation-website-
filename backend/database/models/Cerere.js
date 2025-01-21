@@ -175,17 +175,15 @@ async function actualizeazaStatusAprobareProfesor(idCerere){
     return false;
   }
 }
-
+///actualizeaza pdf in baza de date 
 async function actualizeazaPdf(student_id,pdfBuffer) {
   try {
-
     const [numRowsUpdated] = await Cerere.update(
       { fisier_pdf: pdfBuffer,
         signed_by_student : true
       },
       { where: { student_id } }
     );
-
     if (numRowsUpdated === 0) {
       console.error(`Cerere pentru student_id ${student_id} nu a fost găsită.`);
       return false;
@@ -196,9 +194,10 @@ async function actualizeazaPdf(student_id,pdfBuffer) {
     return false;
   }
 }
+//returneaza pdf
 async function getPdf(idCerere) {
   try {
-    console.log(idCerere); // Debugging log
+    console.log(idCerere);
     const cerere = await Cerere.findOne({
       where: { id: idCerere },
       attributes: ['fisier_pdf', 'title'],
@@ -208,16 +207,38 @@ async function getPdf(idCerere) {
       throw new Error('Fișierul PDF nu a fost găsit.');
     }
 
-    // Ensure fisier_pdf is a Buffer (if it's not already, convert it)
     const pdfBuffer = Buffer.isBuffer(cerere.fisier_pdf)
       ? cerere.fisier_pdf
-      : Buffer.from(cerere.fisier_pdf, 'base64'); // Assuming it's base64-encoded if it's not a buffer
+      : Buffer.from(cerere.fisier_pdf, 'base64');
 
     return { pdfBuffer, title: cerere.title };
   } catch (error) {
     console.error('Eroare la obținerea fișierului PDF:', error);
-    throw error; // Propagate the error to be handled by the caller
+    throw error; 
   }
+}
+//atribute pentru cerere 
+async function getStats(idCerere) {
+  try {
+    const cerere = await Cerere.findOne({
+      where: { id: idCerere }, // Filtrare după idCerere
+      attributes: [
+        'title',
+        'message',
+        'student_id'
+      ],
+    });
+
+    if (!cerere) {
+      return { error: 'Cererea nu a fost găsită.' };
+    }
+
+    return cerere; // Returnează obiectul găsit
+  } catch (error) {
+    console.error('Eroare la extragerea cererii:', error);
+    throw new Error('Eroare la obținerea statisticilor cererii.');
+  }
+
 }
 module.exports = {
   Cerere,
@@ -229,5 +250,6 @@ module.exports = {
   actualizeazaStatusAprobareProfesor,
   stergeCerereDupaIdStudent,
   actualizeazaPdf,
-  getPdf
+  getPdf,
+  getStats
 };
