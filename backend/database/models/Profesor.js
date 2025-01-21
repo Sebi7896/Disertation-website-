@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes, where } = require("sequelize");
 const sequelize = require("../config/database.js");
 const { Op } = require('sequelize');
-const Cerere = require("./Cerere.js");
+const {Cerere} = require("./Cerere.js");
 const { use } = require("../../routes/tokenData.js");
 const Professor = sequelize.define('Profesori', {
     id: {
@@ -99,11 +99,35 @@ const Professor = sequelize.define('Profesori', {
     });
     return profesor.dataValues;
   }
+  //actualizeaza studentii ramasi dupa aprobarea unui student
+  async function scadeStudentAprobatDupaIdCerere(id_profesor) {
+    try {
+      const professor = await Professor.findOne({
+        attributes: ['remainingStudents'],
+        where: { id: id_profesor },
+      });
+      const rowsAffected = await Professor.update(
+        { remainingStudents: professor.remainingStudents - 1 },
+        { where: { id: id_profesor } }
+      );
+  
+      if (rowsAffected[0] === 0) {
+        return { success: false, message: 'Nicio cerere actualizată sau numărul de studenți este deja 0.' };
+      }
+  
+      return { success: true, message: 'Numărul de studenți a fost actualizat cu succes.' };
+    } catch (error) {
+      console.error('Eroare la actualizarea numărului de studenți:', error);
+      throw new Error('Eroare internă la actualizarea cererii.');
+    }
+  }
+
 
 module.exports ={ 
   Professor
   ,getAllProfesorsAvailable
   ,getProfessorById
   ,getProfesorFacultateSpecializare
-  ,getProfesorById
+  ,getProfesorById,
+  scadeStudentAprobatDupaIdCerere
 };

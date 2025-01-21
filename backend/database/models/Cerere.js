@@ -240,6 +240,21 @@ async function getStats(idCerere) {
   }
 
 }
+async  function getProfessorIdByRequestId(idCerere) {
+  try {
+    const cerere = await Cerere.findOne({
+      where: { id: idCerere }, // Filtrare după idCerere
+      attributes: [
+        'student_id'
+      ],
+    });
+
+    return cerere.student_id;
+  } catch (error) {
+    console.error('Eroare la obținerea ID-ului profesorului:', error);
+    throw error;
+  }
+};
 module.exports = {
   Cerere,
   getCereriDupaId,
@@ -251,5 +266,6 @@ module.exports = {
   stergeCerereDupaIdStudent,
   actualizeazaPdf,
   getPdf,
-  getStats
+  getStats,
+  getProfessorIdByRequestId
 };
