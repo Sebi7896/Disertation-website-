@@ -198,7 +198,7 @@ async function actualizeazaPdf(student_id,pdfBuffer) {
 }
 async function getPdf(idCerere) {
   try {
-    console.log(idCerere);
+    console.log(idCerere); // Debugging log
     const cerere = await Cerere.findOne({
       where: { id: idCerere },
       attributes: ['fisier_pdf', 'title'],
@@ -208,15 +208,15 @@ async function getPdf(idCerere) {
       throw new Error('Fișierul PDF nu a fost găsit.');
     }
 
-    // Convert JSON array to Buffer if necessary
+    // Ensure fisier_pdf is a Buffer (if it's not already, convert it)
     const pdfBuffer = Buffer.isBuffer(cerere.fisier_pdf)
       ? cerere.fisier_pdf
-      : Buffer.from(cerere.fisier_pdf);
+      : Buffer.from(cerere.fisier_pdf, 'base64'); // Assuming it's base64-encoded if it's not a buffer
 
     return { pdfBuffer, title: cerere.title };
   } catch (error) {
     console.error('Eroare la obținerea fișierului PDF:', error);
-    throw error;
+    throw error; // Propagate the error to be handled by the caller
   }
 }
 module.exports = {
