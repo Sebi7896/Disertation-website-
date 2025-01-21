@@ -73,7 +73,7 @@ async function getCereriProfesor(profesor_id) {
     try {
         const cereri = await Cerere.findAll({
             where: { professor_id: profesor_id },
-            attributes: ['title','message','student_id','signed_by_professor','signed_by_student','status_acceptare_profesor']
+            attributes: ['id','title','message','student_id','signed_by_professor','signed_by_student','status_acceptare_profesor']
         });   
         return cereri.map(cerere => cerere.dataValues);
         
