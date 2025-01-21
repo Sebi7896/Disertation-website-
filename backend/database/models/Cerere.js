@@ -201,17 +201,22 @@ async function getPdf(idCerere) {
     console.log(idCerere);
     const cerere = await Cerere.findOne({
       where: { id: idCerere },
-      attributes: ['fisier_pdf','title'],
+      attributes: ['fisier_pdf', 'title'],
     });
-
 
     if (!cerere || !cerere.fisier_pdf) {
       throw new Error('Fișierul PDF nu a fost găsit.');
     }
-    return {fisier_pdf: cerere.fisier_pdf, title : cerere.title};
+
+    // Convert JSON array to Buffer if necessary
+    const pdfBuffer = Buffer.isBuffer(cerere.fisier_pdf)
+      ? cerere.fisier_pdf
+      : Buffer.from(cerere.fisier_pdf);
+
+    return { pdfBuffer, title: cerere.title };
   } catch (error) {
     console.error('Eroare la obținerea fișierului PDF:', error);
-    throw error; // Aruncăm eroarea pentru a fi gestionată la nivelul apelantului
+    throw error;
   }
 }
 module.exports = {
