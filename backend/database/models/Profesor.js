@@ -46,6 +46,8 @@ const Professor = sequelize.define('Profesori', {
     modelName: 'Profesor',
     tableName: 'Profesori'
 });
+
+//returneaza profesorii disponibili pentru un student (fara cei pe care i a ales)
   async function getAllProfesorsAvailable(facultate,specializare,cereriDejaFacuteDeProfi) {
     try {
       const professors = await Professor.findAll({
@@ -64,7 +66,7 @@ const Professor = sequelize.define('Profesori', {
       throw error;
     }
   }
-
+  //returneaza toate datele profului
   async function getProfessorById(professorId) {  
     try {
       const professor = await Professor.findOne({
@@ -76,6 +78,7 @@ const Professor = sequelize.define('Profesori', {
       throw error;
     }
   }
+  //ret facultatea si specializarea profului
   async function getProfesorFacultateSpecializare(profesor_id) {
       const prof = await Professor.findOne({
             where: {

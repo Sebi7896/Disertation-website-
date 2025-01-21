@@ -37,27 +37,23 @@ const Student = sequelize.define('Studenti', {
     timestamps: false,
     freezeTableName: true
   });
-
+  //returneaza toti studentii
   async function getAllStudents() {
     try {
-        // Selectăm toate datele din tabela Studenti
         const students = await Student.findAll();
         const listaStudenti = students.map(student => {
           const { id, nume, prenume, facultate, specializare } = student.dataValues;
           return { id, nume, prenume, facultate, specializare };
         });
-        // Afișăm datele în consolă
         console.log(listaStudenti);
         console.log(listaStudenti.filter(student => student.facultate === "Facultatea de Economie"));
     } catch (error) {
-        // Dacă apare o eroare, o afișăm
         console.error('Error fetching students:', error);
     }
   }
-
+  //returneaza un anumit student dupa id-ul lui
   async function getStudentById(studentId) {
     try {
-        // Selectăm toate datele din tabela Studenti
         const student = await Student.findOne({
           where: {
               user_id: studentId
@@ -67,11 +63,10 @@ const Student = sequelize.define('Studenti', {
       return {nume, prenume, facultate, specializare };
     }
     catch (error) {
-        // Dacă apare o eroare, o afișăm
         console.error('Error fetching student:', error);
     }
   }
-
+  //returneaza id ul studentului dupa User-ul acestuia
   async function getStudentIdByUserId(userId) {
     try {
         // id-ul
@@ -87,6 +82,7 @@ const Student = sequelize.define('Studenti', {
         console.error('Error fetching student:', error);
     }
   }
+  //returneaza  statusul de acceptare si id ul id a unui user student
   async function getPendingProfesor(userId) {
     try {
         // id-ul
@@ -103,6 +99,7 @@ const Student = sequelize.define('Studenti', {
         console.error('Error fetching student:', error);
     }
   }
+  //returneaza toti profesorii disponibili pe care ii poate alege un student 
   async function getProfesoriDeAlesFacultateSpecializare(student_id,cereriDejaFacuteDeProfi) {
     try {
         
@@ -122,6 +119,7 @@ const Student = sequelize.define('Studenti', {
         console.error('Error fetching proffesors:', error);
     }
   }
+  //returneaza numele si prenumele studentlui cu id ul sau 
   async function getCreditentials(student_id) {
       try {
         const student = await Student.findOne({
@@ -135,6 +133,7 @@ const Student = sequelize.define('Studenti', {
         console.error('Error fetching proffesors:', error);
       }
   }
+  //returneaza facultatea si specializarea studentului cu id sau
   async function getStudentiFacultateSpecializare(student_id) {
     const student = await Student.findOne({
       where: {

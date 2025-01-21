@@ -54,21 +54,7 @@ const Cerere = sequelize.define("Cereri", {
   }
 );
 
-//dupa idStudent 
-async function getCereriDupaId(studentId) {
-  try {
-    const cereri = await Cerere.findAll({
-      where: { student_id: studentId },
-      attributes: ['id', 'title', 'message', 'professor_id', 'status_acceptare_profesor']
-    });
-    const cereriMapate = cereri.map(cerere => cerere.dataValues);
-    return cereriMapate;
-  } catch (error) {
-    console.error('Error fetching cereri:', error);
-    throw error;
-  }  
-}
-//dupa id Profesor iau cererile
+//returneaza cererile unui student dupa id ul sau
 async function getCereriDupaId(studentId) {
   try {
     const cereri = await Cerere.findAll({
@@ -96,6 +82,7 @@ async function getCereriProfesor(profesor_id) {
         return false;
     }
 }
+//insereaza titlul si mesajul cererii
 async function insertTitleAndMessage(titlul,mesaj,idProfesor, id) {
     try {
         console.log('Inserting title and message:', titlul, mesaj, idProfesor, id);
