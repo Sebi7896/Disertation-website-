@@ -117,11 +117,28 @@ async function getCereriProfesorIds(studentId) {
     return false;
   }
 }
+//sterge cererea cu id ul specificat
+async function stergeCerereDupaId(idCerere) {
+    try {
+      const rezultat = await Cerere.destroy({
+        where: { id: idCerere },
+      })
+      if(rezultat) {
+        return true;
+      }
+      return false;
+        
+    }catch(error) {
+      console.log("Error deleting row: " + error);
+      return false;
+    }
+}
 
 module.exports = {
   Cerere,
   getCereriDupaId,
   insertTitleAndMessage,
   getCereriProfesor,
-  getCereriProfesorIds
+  getCereriProfesorIds,
+  stergeCerereDupaId
 };
