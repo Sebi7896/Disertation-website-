@@ -103,10 +103,25 @@ async function insertTitleAndMessage(titlul,mesaj,idProfesor, id) {
     }
 }
 
+//returnezaza id urile de profesor de cereri pentru un id de student
+async function getCereriProfesorIds(studentId) {
+   try {
+    const cereri = await Cerere.findAll({
+        where: { student_id: studentId },
+        attributes: ['professor_id']
+    });
+    const ids = cereri.map(cerere => cerere.dataValues.professor_id);
+    return ids;
+  } catch (error) {
+    console.error('Error fetching cereri:', error);
+    return false;
+  }
+}
 
 module.exports = {
   Cerere,
   getCereriDupaId,
   insertTitleAndMessage,
-  getCereriProfesor
+  getCereriProfesor,
+  getCereriProfesorIds
 };
