@@ -2,6 +2,7 @@ const { Sequelize, DataTypes, where } = require("sequelize");
 const sequelize = require("../config/database.js");
 const { Op } = require('sequelize');
 const Cerere = require("./Cerere.js");
+const { use } = require("../../routes/tokenData.js");
 const Professor = sequelize.define('Profesori', {
     id: {
       type: Sequelize.INTEGER,
@@ -88,11 +89,11 @@ const Professor = sequelize.define('Profesori', {
           });
       return prof.dataValues; 
   }
-  //returneaza datele profesorului pentru main page
-  async function getProfesorById(profesor_id) {
+  //returneaza datele profesorului user ului
+  async function getProfesorById(user_id) {
     const profesor =await Professor.findOne({
       where : {
-        id : profesor_id
+        user_id : user_id
       },
       attributes : ['id','nume','prenume','remainingStudents']
     });
