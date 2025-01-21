@@ -3,7 +3,7 @@ const router = express.Router();
 const Student = require('../../database/models/Student');
 const Cerere = require('../../database/models/Cerere');
 const authMiddleware = require('../../middleware/auth');
-const rawBody = require('raw-body');
+//const rawBody = require('raw-body');
 
 
 // Use raw-body middleware to get raw binary data
@@ -33,4 +33,3 @@ router.post('/upload', authMiddleware, async (req, res) => {
 module.exports = router;
   
   
-module.exports = router;

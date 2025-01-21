@@ -196,6 +196,24 @@ async function actualizeazaPdf(student_id,pdfBuffer) {
     return false;
   }
 }
+async function getPdf(idCerere) {
+  try {
+    console.log(idCerere);
+    const cerere = await Cerere.findOne({
+      where: { id: idCerere },
+      attributes: ['fisier_pdf','title'],
+    });
+
+
+    if (!cerere || !cerere.fisier_pdf) {
+      throw new Error('Fișierul PDF nu a fost găsit.');
+    }
+    return {fisier_pdf: cerere.fisier_pdf, title : cerere.title};
+  } catch (error) {
+    console.error('Eroare la obținerea fișierului PDF:', error);
+    throw error; // Aruncăm eroarea pentru a fi gestionată la nivelul apelantului
+  }
+}
 module.exports = {
   Cerere,
   getCereriDupaId,
@@ -205,5 +223,6 @@ module.exports = {
   stergeCerereDupaId,
   actualizeazaStatusAprobareProfesor,
   stergeCerereDupaIdStudent,
-  actualizeazaPdf
+  actualizeazaPdf,
+  getPdf
 };

@@ -20,6 +20,8 @@ const checkRequests = require("../routes/StudentRoutes/checkRequests.js");
 const deleteRequest = require("../routes/TeacherRoutes/stergeCerere.js");
 const actualizareCerereProfesorAcceptare = require("../routes/TeacherRoutes/acceptaCerere.js");
 const upload = require("../routes/StudentRoutes/upload.js");
+const getPdf = require("../routes/CereriRoutes/primirePdf.js");
+
 const app = express();
 // Middleware
 app.use(cors());
@@ -40,6 +42,7 @@ app.use("/auth",checkRequests);
 app.use("/auth",deleteRequest);
 app.use("/auth",actualizareCerereProfesorAcceptare);
 app.use("/auth",upload);
+app.use('/auth',getPdf);
 
 const port = 8000;
 app.listen(port,async () => {
