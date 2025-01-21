@@ -43,6 +43,10 @@ const Cerere = sequelize.define("Cereri", {
     status_acceptare_profesor: {
       type: DataTypes.TEXT,
       defaultValue: null
+    },
+    fisier_pdf:{
+      type: DataTypes.BLOB('long'),  
+      defaultValue: null,
     }
   }, {
     timestamps: false,
