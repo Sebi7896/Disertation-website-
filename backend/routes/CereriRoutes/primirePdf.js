@@ -6,7 +6,7 @@ const Cerere = require('../../database/models/Cerere');
 const Student = require('../../database/models/Student');
 
 
-router.get('/getPdf', authMiddleware, async (req, res) => {
+router.post('/getPdf', authMiddleware, async (req, res) => {
     try {
       const idCerere = req.body.idCerere; 
       const pdf = await Cerere.getPdf(idCerere);
