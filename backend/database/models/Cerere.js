@@ -137,14 +137,13 @@ async function stergeCerereDupaId(idCerere) {
 async function actualizeazaStatusAprobareProfesor(idCerere){
   try {
     const rezultat = await Cerere.update(
-      { status: "accepted" },
+      { status_acceptare_profesor: "accepted" },
       { where: { id: idCerere } }
     );
     if(rezultat[0] === 1) {
       return true;
     }
   }catch(error) {
-
     return false;
   }
 

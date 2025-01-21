@@ -18,6 +18,7 @@ const titleMsg = require("../routes/StudentRoutes/adaugaCerere.js");
 const statusProf = require("../routes/StudentRoutes/statusAcceptareProfesor.js");
 const checkRequests = require("../routes/StudentRoutes/checkRequests.js");
 const deleteRequest = require("../routes/TeacherRoutes/stergeCerere.js");
+const actualizareCerereProfesorAcceptare = require("../routes/TeacherRoutes/acceptaCerere.js");
 const app = express();
 // Middleware
 app.use(cors());
@@ -36,6 +37,7 @@ app.use("/auth",titleMsg);
 app.use("/auth",statusProf);
 app.use("/auth",checkRequests);
 app.use("/auth",deleteRequest);
+app.use("/auth",actualizareCerereProfesorAcceptare);
 
 const port = 8000;
 app.listen(port,async () => {
