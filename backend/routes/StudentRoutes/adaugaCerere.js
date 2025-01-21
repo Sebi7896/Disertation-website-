@@ -27,7 +27,6 @@ router.put('/adaugaCerere', authMiddleware, async (req, res) => {
         }
 
         // Inseram datele noi în baza de date
-        console.log(studentId, idProfesor, mesaj, titlul);  
         const inserata = await Cerere.insertTitleAndMessage(titlul, mesaj, idProfesor,studentId);
         if (!inserata) {
             return res.status(500).json({ message: 'Eroare la inserarea cererii.' });

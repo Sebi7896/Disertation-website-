@@ -243,13 +243,13 @@ async function getStats(idCerere) {
 async  function getProfessorIdByRequestId(idCerere) {
   try {
     const cerere = await Cerere.findOne({
-      where: { id: idCerere }, // Filtrare după idCerere
+      where: { id: idCerere },
       attributes: [
-        'student_id'
+        'professor_id'
       ],
     });
 
-    return cerere.student_id;
+    return cerere.professor_id;
   } catch (error) {
     console.error('Eroare la obținerea ID-ului profesorului:', error);
     throw error;
