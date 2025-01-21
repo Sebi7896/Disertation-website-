@@ -10,9 +10,17 @@ router.put('/actualizeazaCerereStudent', authMiddleware, async (req, res) => {
     const idCerere = req.body.idCerere;
   
     try {
-      const rezultat = await Cerere.actualizeazaStatusAprobareProfesor(idCerere);
-  
-      if (rezultat) {
+      const idStudentCerere = await Cerere.actualizeazaStatusAprobareProfesor(idCerere);
+
+      if (idStudentCerere) {
+        //stergem celelalte cereri
+        
+        console.log(idStudentCerere.dataValues);
+        const idStudent = idStudentCerere.dataValues.student_id;
+        
+        const cerere =await Cerere.stergeCerereDupaIdStudent(idStudent);
+        
+
         return res.status(200).json({ message: "Cerere actualizata cu succes! "});
       } else {
         return res.status(404).json({ message: "Cererea cu acest ID nu a fost găsită." });

@@ -133,6 +133,25 @@ async function stergeCerereDupaId(idCerere) {
       return false;
     }
 }
+//stergem cand a acceptat
+async function stergeCerereDupaIdStudent(student_id) {
+  try {
+    const rezultat = await Cerere.destroy({
+      where: {
+        student_id: student_id,
+        status_acceptare_profesor: 'pending'
+      },
+    })
+    if(rezultat) {
+      return true;
+    }
+    return false;
+      
+  }catch(error) {
+    console.log("Error deleting row: " + error);
+    return false;
+  }
+}
 //actualizeaza cerererea aprobata a profului
 async function actualizeazaStatusAprobareProfesor(idCerere){
   try {
@@ -141,8 +160,13 @@ async function actualizeazaStatusAprobareProfesor(idCerere){
       { where: { id: idCerere } }
     );
     if(rezultat[0] === 1) {
-      return true;
+      const idStudent = await Cerere.findOne({
+        where :{id : idCerere},
+        attributes : ['student_id']
+      });
+      return idStudent;
     }
+    return false;
   }catch(error) {
     return false;
   }
@@ -156,5 +180,6 @@ module.exports = {
   getCereriProfesor,
   getCereriProfesorIds,
   stergeCerereDupaId,
-  actualizeazaStatusAprobareProfesor
+  actualizeazaStatusAprobareProfesor,
+  stergeCerereDupaIdStudent
 };
