@@ -76,7 +76,18 @@ const Professor = sequelize.define('Profesori', {
       throw error;
     }
   }
+  async function getProfesorFacultateSpecializare(profesor_id) {
+      const prof = await Professor.findOne({
+            where: {
+                id: profesor_id
+            },
+            attributes: ['facultate', 'specializare']
+          });
+      return prof.dataValues; 
+  }
 module.exports ={ 
   Professor
   ,getAllProfesorsAvailable
-  ,getProfessorById};
+  ,getProfessorById
+  ,getProfesorFacultateSpecializare
+};
