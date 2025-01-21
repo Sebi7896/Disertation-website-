@@ -52,7 +52,7 @@ const Professor = sequelize.define('Profesori', {
         where: {
           facultate: facultate,
           specializare: specializare,
-          professor_id: {
+          id: {
             [Op.notIn]: cereriDejaFacuteDeProfi,
           },
         },
