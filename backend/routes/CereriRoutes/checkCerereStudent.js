@@ -16,20 +16,21 @@ router.get('/checkCerereStudent', authMiddleware, async (req, res) => {
 
     const cereri = await Cerere.getCereriDupaId(studentId); 
     console.log(cereri);
-    if(cereri.length === 1) {
-        if(cereri.at(0).status_acceptare_profesor === 'pending') {
-            res.status(200).json({route: '/HomeStudent'});
-        }else {
-            console.log(cereri.at(0).signed_by_professor)
-            if(cereri.at(0).signed_by_professor) {
-                res.status(200).json({route: '/RutaFinalaAcceptat'});
-            }else {
-                res.status(200).json({route: '/IncarcarePdf'});
-            }
+    if (cereri.length === 1) {
+        const cerere = cereri[0];
+    
+        if (cerere.status_acceptare_profesor === 'pending') {
+            return res.status(200).json({ route: '/studenthome' });
         }
-    } else {
-        res.status(200).json({route: '/HomeStudent'});
-    }   
+    
+        if (cerere.signed_by_professor) {
+            return res.status(200).json({ route: '/RutaFinalaAcceptat' });
+        }
+    
+        return res.status(200).json({ route: '/cerereaprobata' });
+    }
+    
+    return res.status(200).json({ route: '/studenthome' });
 });
   
 module.exports = router;
