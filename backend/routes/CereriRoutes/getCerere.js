@@ -6,7 +6,7 @@ const Cerere = require('../../database/models/Cerere');
 const Student = require('../../database/models/Student');
 
 
-router.get('/getRequestStats', authMiddleware, async (req, res) => {
+router.get('/getCerere', authMiddleware, async (req, res) => {
     try {
       const cerereId = req.body.idCerere;
   
