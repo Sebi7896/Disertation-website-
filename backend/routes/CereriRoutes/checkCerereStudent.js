@@ -24,7 +24,7 @@ router.get('/checkCerereStudent', authMiddleware, async (req, res) => {
         }
     
         if (cerere.signed_by_professor) {
-            return res.status(200).json({ route: '/RutaFinalaAcceptat' });
+            return res.status(200).json({ route: '/paginafinalastudent' });
         }
     
         return res.status(200).json({ route: '/cerereaprobata' });
