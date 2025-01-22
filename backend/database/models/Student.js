@@ -143,6 +143,8 @@ const Student = sequelize.define('Studenti', {
     });
     return student.dataValues; 
   }
+
+
 module.exports = {
   Student,getAllStudents,
   getStudentById,

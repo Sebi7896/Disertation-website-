@@ -290,6 +290,14 @@ async function stergeCereriInPendingProfesor(id_profesor) {
     throw error;
   }
 }
+  //actualizeaza cerere dupa titlu si mesaj
+ async function actualizeazaTitluMesaj(idCerere,titlul,mesaj) {
+    try {
+      //const rowsAffected = Cerere.update
+    }catch(error) {
+
+    }
+  }
 module.exports = {
   Cerere,
   getCereriDupaId,
@@ -304,5 +312,6 @@ module.exports = {
   getPdf,
   getStats,
   getProfessorIdByRequestId,
-  stergeCereriInPendingProfesor
+  stergeCereriInPendingProfesor,
+  actualizeazaTitluMesaj
 };

@@ -18,7 +18,7 @@ router.get('/getProfData', authMiddleware, async (req, res) => {
             };
           }     
         cereri.forEach(cerere => delete cerere.student_id);
-        return res.status(200).json({cereri: cereri});
+        return res.status(200).json({profesor : profesor, cereri: cereri});
     }catch (error) {
         console.error('Error in requestsProfesor:', error);
         return res.status(401).json({ message: error.message });
