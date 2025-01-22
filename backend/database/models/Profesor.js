@@ -110,7 +110,12 @@ const Professor = sequelize.define('Profesori', {
         { remainingStudents: professor.remainingStudents - 1 },
         { where: { id: id_profesor } }
       );
-  
+      if(remainingStudents === 0) {
+        //sterge cererile care sunt in pending
+        await Cerere.stergeCereriInPendingProfesor(id_profesor);
+      }
+
+
       if (rowsAffected[0] === 0) {
         return { success: false, message: 'Nicio cerere actualizată sau numărul de studenți este deja 0.' };
       }

@@ -275,6 +275,23 @@ async  function getProfessorIdByRequestId(idCerere) {
     throw error;
   }
 };
+//sterge cererile ca nu mai are remaining students
+async function stergeCereriInPendingProfesor(id_profesor) {
+  try {
+    const numarCereriiSterse = await Cerere.destroy({
+      where: {
+        professor_id: id_profesor,
+        status_acceptare_profesor: 'pending',
+      },
+    });
+
+    console.log(`Cererile șterse: ${numarCereriiSterse}`);
+    return numarCereriiSterse;
+  } catch (error) {
+    console.error("Eroare la ștergerea cererilor:", error);
+    throw error;
+  }
+}
 module.exports = {
   Cerere,
   getCereriDupaId,
@@ -288,5 +305,6 @@ module.exports = {
   actualizeazaPdfProfesor,
   getPdf,
   getStats,
-  getProfessorIdByRequestId
+  getProfessorIdByRequestId,
+  stergeCereriInPendingProfesor
 };
