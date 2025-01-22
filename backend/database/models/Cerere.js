@@ -342,5 +342,6 @@ module.exports = {
   getStats,
   getProfessorIdByRequestId,
   stergeCereriInPendingProfesor,
-  actualizeazaTitluMesaj
+  actualizeazaTitluMesaj,
+  getMesajTitlul
 };
