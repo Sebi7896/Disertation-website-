@@ -244,6 +244,7 @@ async function getStats(idCerere) {
       attributes: [
         'title',
         'message',
+        'signed_by_student',
         'student_id'
       ],
     });
