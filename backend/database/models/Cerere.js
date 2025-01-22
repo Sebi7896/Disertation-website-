@@ -63,7 +63,7 @@ async function getCereriDupaId(studentId) {
   try {
     const cereri = await Cerere.findAll({
       where: { student_id: studentId },
-      attributes: ['id','title','message','professor_id','status_acceptare_profesor','signed_by_professor']
+      attributes: ['id','title','message','professor_id','status_acceptare_profesor','signed_by_professor','signed_by_student']
     });
     const cereriMapate = cereri.map(cerere => cerere.dataValues);
     return cereriMapate;
