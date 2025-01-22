@@ -1,18 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const Student = require('../../database/models/Student');
 const Cerere = require('../../database/models/Cerere');
 const authMiddleware = require('../../middleware/auth');
 const multer = require('multer');
+const  Professor  = require('../../database/models/Profesor');
 const upload = multer();
 
-router.post('/uploadPdfStudent', authMiddleware, upload.single('file'), async (req, res) => {
+router.post('/uploadPdfProfesor', authMiddleware, upload.single('file'), async (req, res) => {
   try {
-    const userId = req.user.userId; 
-    const studentId = await Student.getStudentIdByUserId(userId);
+    const idCerere = req.idCerere;
     const pdfBuffer = req.file.buffer;
 
-    const actualizareCuSucces = await Cerere.actualizeazaPdfStudent(studentId, pdfBuffer);
+    const actualizareCuSucces = await Cerere.actualizeazaPdfProfesor(idCerere, pdfBuffer);
 
     if (!actualizareCuSucces) {
       return res.status(400).json({ error: 'No file uploaded or request not found' });

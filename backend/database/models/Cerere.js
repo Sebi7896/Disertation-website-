@@ -175,8 +175,8 @@ async function actualizeazaStatusAprobareProfesor(idCerere){
     return false;
   }
 }
-///actualizeaza pdf in baza de date 
-async function actualizeazaPdf(student_id,pdfBuffer) {
+///actualizeaza pdf in baza de date  pt student 
+async function actualizeazaPdfStudent(student_id,pdfBuffer) {
   try {
     const [numRowsUpdated] = await Cerere.update(
       { fisier_pdf: pdfBuffer,
@@ -185,7 +185,26 @@ async function actualizeazaPdf(student_id,pdfBuffer) {
       { where: { student_id } }
     );
     if (numRowsUpdated === 0) {
-      console.error(`Cerere pentru student_id ${student_id} nu a fost găsită.`);
+      console.error(`request not found!.`);
+      return false;
+    }
+    return true
+  } catch (error) {
+    console.error('Eroare la actualizarea PDF-ului:', error);
+    return false;
+  }
+}
+//actualizeaza pentru profesor
+async function actualizeazaPdfProfesor(idCerere,pdfBuffer) {
+  try {
+    const [numRowsUpdated] = await Cerere.update(
+      { fisier_pdf: pdfBuffer,
+        signed_by_professor : true
+      },
+      { where: { id : idCerere } }
+    );
+    if (numRowsUpdated === 0) {
+      console.error(`request not found!`);
       return false;
     }
     return true
@@ -264,7 +283,8 @@ module.exports = {
   stergeCerereDupaId,
   actualizeazaStatusAprobareProfesor,
   stergeCerereDupaIdStudent,
-  actualizeazaPdf,
+  actualizeazaPdfStudent,
+  actualizeazaPdfProfesor,
   getPdf,
   getStats,
   getProfessorIdByRequestId
