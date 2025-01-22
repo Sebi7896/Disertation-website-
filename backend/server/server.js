@@ -24,6 +24,7 @@ const cerereStats = require("../routes/CereriRoutes/dateCerere.js")
 const uploadStud = require("../routes/StudentRoutes/upload.js");
 const uploadProf = require("../routes/TeacherRoutes/upload.js");
 const actualiza = require("../routes/StudentRoutes/actualizareTitluMesaj.js");
+const getCerere = require("../routes/CereriRoutes/getCerere.js");
 const app = express();
 // Middleware
 app.use(cors());
@@ -48,6 +49,7 @@ app.use('/auth',getPdf);
 app.use('/auth',cerereStats);
 app.use("/auth",uploadProf);
 app.use("/auth",actualiza);
+app.use("/auth",getCerere);
 const port = 8000;
 app.listen(port,async () => {
   console.log(`Server is running on http://localhost:${port}`);
