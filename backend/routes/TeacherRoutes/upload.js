@@ -8,9 +8,8 @@ const upload = multer();
 
 router.post('/uploadPdfProfesor', authMiddleware, upload.single('file'), async (req, res) => {
   try {
-    const idCerere = req.idCerere;
+    const idCerere = req.body.idCerere;
     const pdfBuffer = req.file.buffer;
-
     const actualizareCuSucces = await Cerere.actualizeazaPdfProfesor(idCerere, pdfBuffer);
 
     if (!actualizareCuSucces) {
