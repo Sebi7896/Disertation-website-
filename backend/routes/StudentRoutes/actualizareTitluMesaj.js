@@ -15,7 +15,6 @@ router.put('/actualizeazaTitlulMesaj', authMiddleware, async (req, res) => {
     if (!idCerere || !mesaj || !titlul) {
         return res.status(400).json({ message: 'Toate câmpurile sunt obligatorii.' });
     }
-
     try {
         const updateCerere = await Cerere.actualizeazaTitluMesaj(idCerere, titlul, mesaj);
 

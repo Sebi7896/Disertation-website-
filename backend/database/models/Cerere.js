@@ -308,6 +308,25 @@ async function stergeCereriInPendingProfesor(id_profesor) {
       throw error;
     }
   }
+
+//get Titlu si mesaj
+async function getMesajTitlul(idCerere) {
+  try {
+    // Găsește o cerere după ID
+    const cerere = await Cerere.findOne({
+      where: { id: idCerere }, // Condiția de identificare
+      attributes: ['title', 'message'], // Alege doar coloanele dorite
+    });
+
+    if (!cerere) {
+      throw new Error('Cererea nu a fost găsită.');
+    }
+    return { titlu: cerere.title, mesaj: cerere.message };
+  } catch (error) {
+    console.error('Eroare la preluarea datelor:', error);
+    throw error;
+  }
+}
 module.exports = {
   Cerere,
   getCereriDupaId,
