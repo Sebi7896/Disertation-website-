@@ -291,11 +291,21 @@ async function stergeCereriInPendingProfesor(id_profesor) {
   }
 }
   //actualizeaza cerere dupa titlu si mesaj
- async function actualizeazaTitluMesaj(idCerere,titlul,mesaj) {
+  async function actualizeazaTitluMesaj(idCerere, titlul, mesaj) {
     try {
-      //const rowsAffected = Cerere.update
-    }catch(error) {
-
+      const [rowsAffected] = await Cerere.update(
+        { title : titlul, message : mesaj }, 
+        { where: { id: idCerere } } 
+      );
+  
+      if (rowsAffected === 0) {
+        throw new Error('Cererea nu a fost găsită sau nu s-a putut actualiza.');
+      }
+  
+      return rowsAffected;
+    } catch (error) {
+      console.error('Eroare la actualizarea cererii:', error);
+      throw error;
     }
   }
 module.exports = {
