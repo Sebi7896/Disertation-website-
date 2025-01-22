@@ -284,8 +284,6 @@ async function stergeCereriInPendingProfesor(id_profesor) {
         status_acceptare_profesor: 'pending',
       },
     });
-
-    console.log(`Cererile șterse: ${numarCereriiSterse}`);
     return numarCereriiSterse;
   } catch (error) {
     console.error("Eroare la ștergerea cererilor:", error);

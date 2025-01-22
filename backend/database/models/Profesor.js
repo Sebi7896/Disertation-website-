@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes, where } = require("sequelize");
 const sequelize = require("../config/database.js");
 const { Op } = require('sequelize');
-const {Cerere} = require("./Cerere.js");
+const {Cerere,stergeCereriInPendingProfesor} = require("./Cerere.js");
 const { use } = require("../../routes/tokenData.js");
 const Professor = sequelize.define('Profesori', {
     id: {
@@ -110,9 +110,9 @@ const Professor = sequelize.define('Profesori', {
         { remainingStudents: professor.remainingStudents - 1 },
         { where: { id: id_profesor } }
       );
-      if(remainingStudents === 0) {
+      if(professor.remainingStudents -1 === 0) {
         //sterge cererile care sunt in pending
-        await Cerere.stergeCereriInPendingProfesor(id_profesor);
+        await stergeCereriInPendingProfesor(id_profesor);
       }
 
 

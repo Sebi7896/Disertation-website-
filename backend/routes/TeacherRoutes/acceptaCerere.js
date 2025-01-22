@@ -15,11 +15,7 @@ router.put('/actualizeazaCerereStudent', authMiddleware, async (req, res) => {
       if (idStudentCerere) {
         //stergem celelalte cereri
         const idStudent = idStudentCerere.dataValues.student_id;
-        
         const cerere =await Cerere.stergeCerereDupaIdStudent(idStudent);
-
-        //scadem remainging student
-
         const id_profesor =await Cerere.getProfessorIdByRequestId(idCerere);
         const updatare = await Profesor.scadeStudentAprobatDupaIdCerere(id_profesor);
 
