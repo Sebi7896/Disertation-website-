@@ -1,0 +1,64 @@
+.cereri-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.cereri-lists {
+  flex: 1;
+  max-width: 50%;
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profesor-home-requests-list {
+  list-style: none;
+  padding: 0;
+}
+
+.profesor-home-request-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.profesor-home-request-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.request-status {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.request-status strong[data-status="pending"] {
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.request-status strong[data-status="acceptat"] {
+  background-color: green;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.cereri-container h1 {
+  margin-left: 100px;
+}
+.profesor-button-disabled {
+  background-color: #cccccc !important; /* Greyed-out */
+  color: #666666 !important;
+  cursor: not-allowed !important;
+  border: 1px solid #aaa;
+  opacity: 0.7;
+}

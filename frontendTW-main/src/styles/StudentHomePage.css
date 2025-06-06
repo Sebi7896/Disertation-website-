@@ -1,0 +1,115 @@
+.student-home {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fa;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.student-home-title {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.student-home-requests-title {
+  font-size: 1.5rem;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.student-home-requests-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.student-home-request-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.student-home-request-item:hover {
+  background-color: #f1f1f1;
+}
+
+.student-home-request-item h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.student-home-request-item p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.student-home-request-item span {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.student-home-request-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.student-home-request-modify-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.student-home-request-modify-btn:hover {
+  background-color: #0056b3;
+}
+
+.student-home-request-delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.student-home-request-delete-btn:hover {
+  background-color: #c82333;
+}
+
+.student-home-add-request-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.student-home-add-request-btn:hover {
+  background-color: #218838;
+}
